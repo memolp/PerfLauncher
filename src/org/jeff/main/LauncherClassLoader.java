@@ -74,7 +74,7 @@ public class LauncherClassLoader extends URLClassLoader
     {
         try
         {
-            File[] jar_files = this.GetJarsFromPath(jar_path);
+            File[] jar_files = GetJarsFromPath(jar_path);
             // 加入之前先过滤已有的
             for (File jar : jar_files) {
                 URL url = jar.toURI().toURL();
