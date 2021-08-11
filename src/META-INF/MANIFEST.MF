@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: org.jeff.main.MainLauncher
+Class-Path: jython-standalone-2.7.2.jar log4j-api-2.
+ 3.jar log4j-core-2.3.jar sqlite-jdbc-3.14.2.jar
+
