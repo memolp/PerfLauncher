@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<!-- 环境配置，为了减少配置的长度，进行了压缩  -->
+	<system>
+		<!-- thread网络线程数  type设置网络模型支持AIO和NIO delay仅NIO使用 buff网络读取大小-->
+		<network thread="4" type="nio" delay="10" buff="4096">压测的网络模块，一般不做修改</network>
+		<!-- open为true开启， delay为收集的间隔 max_record事务记录的最大值 sqlite是否写入数据库-->
+		<transaction open="true" delay="1000" max_record="40000" sqlite="false">事务相关的配置</transaction>
+		<!-- thread并发线程数， delay并发间隔 -->
+		<currence thread="2" delay="1000">压测配置</currence>
+		<java class="" jar=""></java>
+		<!-- home_path jython库路径 script_path 压测代码的根路径  third_path 第三方库路径 -->
+		<jython home_path="" script_path="./script" third_path="">jython环境配置</jython>
+	</system>
+	<!-- 压测数据配置 -->
+	<concurrence>
+		<!-- QPS 每秒执行请求数 -->
+		<qps>2</qps>
+		<!-- 并发打散分片 -->
+		<qps_block>5</qps_block>
+		<!-- 用户起始序号，用于多进程 -->
+		<user_index>0</user_index>
+		<!-- 压测轮数（每秒1轮） -->
+		<times>1800</times>
+		<!-- 每个机器人初始化的间隔时间 -->
+		<init_delay>10</init_delay>
+		<!-- 初始化完成多少百分比后开始并发 -->
+		<init_percent>0.8</init_percent>
+        <!-- 并发结束前等待用户并发完成的超时时间-单位秒 -->
+		<wait_completed>60</wait_completed>
+		<!-- 压测前的等待时间  单位秒-->
+		<wait_time>1</wait_time>
+		<!-- 定时器的间隔 单位毫秒-->
+		<timer_delay>3000</timer_delay>
+		<!-- 压测的模式 1单场景 2综合场景 3单轮场景 4单场景随机 -->
+		<test_mode>1</test_mode>
+		<!-- 是否打散账号,多个场景时设置随机后，每个账号的场景会是随机的 -->
+		<test_random>true</test_random>
+	</concurrence>
+	<!-- 可以用于压测的测试场景， 将open设置1后才会参与压测 -->
+	<scene>
+		<script user="10" script="script/SampleHttpScene.py" open="0">HTTP请求测试</script>
+		<script user="10" script="script/SampleHttpsScene.py" open="1">HTTPS请求测试</script>
+	</scene>
+	<!-- 自定义参数配置 -->
+	<params>
+		<!-- Java代码中的配置参数 -->
+		<!-- <java name="<key>">值-java的参数需要手动在压测前进行读取设置</java> -->
+		<!-- <python name="<全局的变量名称>">变量的值-字符串用引号，其他正常写</python> -->
+	</params>
+</config>
