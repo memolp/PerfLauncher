@@ -100,7 +100,9 @@ public class LauncherClassLoader extends URLClassLoader
     {
         // 先判断传入的路径是否合法
         File file_jar = new File(jar_path);
-        if (!file_jar.isDirectory()) {
+        if (!file_jar.isDirectory()) 
+        {
+        	System.out.printf("[ERROR] GetJarsFromPath :%s is not Dir!", jar_path);
             return null;
         }
         // 遍历路径找到全部的jar

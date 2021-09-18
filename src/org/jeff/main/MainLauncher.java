@@ -22,8 +22,12 @@ public class MainLauncher
 	{
 		List<URL> jars = new ArrayList<URL>();
 		String initialClasspath = System.getProperty(JAVA_CLASS_PATH);
+		File initJar = new 	File(initialClasspath);
+		String InitialJarPath = initJar.getParent();
+		System.out.printf("[DEBUG] initialClasspath:%s \n",initialClasspath);
+		System.out.printf("[DEBUG] InitialJarPath: %s, \n", InitialJarPath);
 		// 加载lib中的全部jar包。
-		File[] jar_files = LauncherClassLoader.GetJarsFromPath(JAVA_JAR_PATH);
+		File[] jar_files = LauncherClassLoader.GetJarsFromPath(InitialJarPath + "/" + JAVA_JAR_PATH);
 		// 将默认的lib中的jar包设置到加载器中
 		StringBuilder str_path = new StringBuilder();
 		try
@@ -34,6 +38,7 @@ public class MainLauncher
 				jars.add(url);
 				str_path.append(File.pathSeparator);
 				str_path.append(url.getPath());
+				System.out.printf("[DEBUG] Add jar:%s \n", url.getPath());
 			}
 		}catch (Exception e)
 		{
