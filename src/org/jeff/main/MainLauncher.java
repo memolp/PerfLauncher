@@ -57,6 +57,14 @@ public class MainLauncher
 		// 读取启动配置
 		LauncherConfig config = new LauncherConfig();
 		config.parseParams(args);
+		if(config.jarsPath != null && !config.jarsPath.isEmpty())
+		{
+			LauncherClassLoader.classLoader.SetJarsPath(config.jarsPath);
+		}
+		if(config.classesPath != null && !config.classesPath.isEmpty())
+		{
+			LauncherClassLoader.classLoader.SetClassPath(config.classesPath);
+		}
 		// 设置线程加载器
 		Thread.currentThread().setContextClassLoader(LauncherClassLoader.classLoader);
 		// 启动引擎

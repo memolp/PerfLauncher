@@ -54,11 +54,12 @@ public class LauncherClassLoader extends URLClassLoader
         // 添加class路径
         try {
             URL url = file_cls.toURI().toURL();
-            if (_cacheURL.equals(url)) //去重
+            /*if (_cacheURL.equals(url)) //去重
             {
                 return;
             }
-            _cacheURL.add(url);
+            _cacheURL.add(url);*/
+            System.out.printf("[DEBUG] Add class:%s", url.getPath());
             this.addURL(url);
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,11 +79,12 @@ public class LauncherClassLoader extends URLClassLoader
             // 加入之前先过滤已有的
             for (File jar : jar_files) {
                 URL url = jar.toURI().toURL();
-                if (_cacheURL.equals(url)) // 去重
+               /* if (_cacheURL.equals(url)) // 去重
                 {
                     continue;
                 }
-                _cacheURL.add(url);
+                _cacheURL.add(url);*/
+                System.out.printf("[DEBUG] Add jar:%s", url.getPath());
                 this.addURL(url);
             }
         } catch (Exception e) {

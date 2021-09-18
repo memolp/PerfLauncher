@@ -12,6 +12,8 @@ public class LauncherConfig
 	public static final String L_CMD_TAG = "-cmd";
 	public static final String L_SCENE_TAG = "-scene";
 	public static final String L_DATA_TAG = "-data";
+	public static final String L_JAR_TAG = "-jars";
+	public static final String L_CLASS_TAG = "-classes";
 	/** 启动模式 */
 	public LauncherMode mode;
 	/** 绑定端口 */
@@ -24,6 +26,10 @@ public class LauncherConfig
 	public String sceneDataClassName = null;
 	/** 指定外部的压测收集类 */
 	public String sceneCollectorName = null;
+	/** 指定外部的Lib */
+	public String jarsPath = null;
+	/** 指定外部的classes */
+	public String classesPath = null;
 	
 	@Override
 	public String toString()
@@ -91,6 +97,26 @@ public class LauncherConfig
 					throw new RuntimeException(String.format("%s 需要指定数据解析类名", L_DATA_TAG));
 				}
 				this.sceneDataClassName = args[index++];
+				continue;
+			}
+			// 额外的jar包路径
+			else if(cmd.equalsIgnoreCase(L_JAR_TAG))
+			{
+				if(index >= size)
+				{
+					throw new RuntimeException(String.format("%s 需要指定路径", L_JAR_TAG));
+				}
+				this.jarsPath = args[index++];
+				continue;
+			}
+			// classes
+			else if(cmd.equalsIgnoreCase(L_CLASS_TAG))
+			{
+				if(index >= size)
+				{
+					throw new RuntimeException(String.format("%s 需要指定路径", L_CLASS_TAG));
+				}
+				this.classesPath = args[index++];
 				continue;
 			}
 		}
