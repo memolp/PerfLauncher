@@ -13,8 +13,8 @@ public class StartLaunchEngine
 	private static final String JAVA_ROBOT_ENGINE = "org.jeff.ptc.PerfCenterServiceEngine";
 	private static final String JAVA_ROBOT_LOADER = "SetClassLoader";
 	private static final String JAVA_ROBOT_CMD_MODE = "LaunchConsole";
-	private static final String JAVA_ROBOT_GUI_MODE = "LaunchGUI";
-	private static final String JAVA_ROBOT_SVR_MODE = "LaunchService";
+	/*private static final String JAVA_ROBOT_GUI_MODE = "LaunchGUI";
+	private static final String JAVA_ROBOT_SVR_MODE = "LaunchService";*/
 	private static final String JAVA_ROBOT_RUNTIME_CLASS = "SetRuntimeClass";
 	private static final String JAVA_ROBOT_DATA_CLASS = "SetDataClass";
 	private static final String JAVA_ROBOT_COLLECTOR_CLASS = "SetCollectorClass";
@@ -55,7 +55,7 @@ public class StartLaunchEngine
 				// 命令行启动
 				Method cmd_method = initClass.getMethod(JAVA_ROBOT_CMD_MODE, String.class);
 				cmd_method.invoke(instance, config.confPath);
-			}else if(config.mode == LauncherMode.GUI_MODE)
+			}/*else if(config.mode == LauncherMode.GUI_MODE)
 			{
 				// GUI模式启动
 				Method gui_method = initClass.getMethod(JAVA_ROBOT_GUI_MODE);
@@ -65,7 +65,7 @@ public class StartLaunchEngine
 				// 服务模式启动
 				Method svr_method = initClass.getMethod(JAVA_ROBOT_SVR_MODE, int.class);
 				svr_method.invoke(instance, config.bindPort);
-			}
+			}*/
 		} catch (Exception e)
 		{
 			e.printStackTrace();

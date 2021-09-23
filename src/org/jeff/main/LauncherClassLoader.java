@@ -6,7 +6,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.*;
 
 /**
  * 动态类加载对象，用于加载外部的jar和class
@@ -25,7 +24,7 @@ public class LauncherClassLoader extends URLClassLoader
     /**
      * 缓存URLS
      */
-    private List<URL> _cacheURL = null;
+    //private List<URL> _cacheURL = null;
 
     /**
      * 动态加载
@@ -36,9 +35,13 @@ public class LauncherClassLoader extends URLClassLoader
     {
         super(urls);
         classLoader = this;
-        _cacheURL = Arrays.asList(urls);
+        //_cacheURL = Arrays.asList(urls);
     }
-
+    public LauncherClassLoader(URL[] urls, ClassLoader s)
+    {
+    	super(urls, s);
+        classLoader = this;
+    }
     /**
      * 设置classpath，添加导出class的文件的根路径。
      *

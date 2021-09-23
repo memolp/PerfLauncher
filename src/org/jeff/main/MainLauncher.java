@@ -28,25 +28,33 @@ public class MainLauncher
 		System.out.printf("[DEBUG] InitialJarPath: %s, \n", InitialJarPath);
 		// 加载lib中的全部jar包。
 		File[] jar_files = LauncherClassLoader.GetJarsFromPath(InitialJarPath + "/" + JAVA_JAR_PATH);
-		// 将默认的lib中的jar包设置到加载器中
-		StringBuilder str_path = new StringBuilder();
-		try
+		if(jar_files != null)
 		{
-			for (File jar_file : jar_files)
+			// 将默认的lib中的jar包设置到加载器中
+			StringBuilder str_path = new StringBuilder();
+			try
 			{
-				URL url = jar_file.toURI().toURL();
-				jars.add(url);
-				str_path.append(File.pathSeparator);
-				str_path.append(url.getPath());
-				System.out.printf("[DEBUG] Add jar:%s \n", url.getPath());
+				for (File jar_file : jar_files)
+				{
+					URL url = jar_file.toURI().toURL();
+					jars.add(url);
+					str_path.append(File.pathSeparator);
+					str_path.append(url.getPath());
+					System.out.printf("[DEBUG] Add jar:%s \n", url.getPath());
+				}
+			}catch (Exception e)
+			{
+				e.printStackTrace();
 			}
-		}catch (Exception e)
+			System.setProperty(JAVA_CLASS_PATH, initialClasspath + str_path.toString());
+			// 创建加载器
+			LauncherClassLoader.classLoader = LauncherClassLoader.CreateLoader(jars.toArray(new URL[jars.size()]));
+		}else
 		{
-			e.printStackTrace();
+			// 创建加载器
+			LauncherClassLoader.classLoader = new LauncherClassLoader(new URL[] {}, MainLauncher.class.getClassLoader());
 		}
-		System.setProperty(JAVA_CLASS_PATH, initialClasspath + str_path.toString());
-		// 创建加载器
-		LauncherClassLoader.classLoader = LauncherClassLoader.CreateLoader(jars.toArray(new URL[jars.size()]));
+		
 	}
 	/**
 	 * main

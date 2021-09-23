@@ -64,7 +64,7 @@ public class LauncherConfig
 				{
 					throw new RuntimeException(String.format("[服务模式]  %s 需要指定监听端口", L_BIND_PORT));
 				}
-				this.mode = LauncherMode.SVR_MODE;
+				//this.mode = LauncherMode.SVR_MODE;
 				this.bindPort = Integer.parseInt(args[index++]);
 				continue;
 			}
