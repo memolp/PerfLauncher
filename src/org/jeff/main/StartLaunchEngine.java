@@ -2,7 +2,6 @@ package org.jeff.main;
 
 
 import java.lang.reflect.Method;
-import java.net.URLClassLoader;
 
 /**
  * 启动引擎
@@ -11,7 +10,6 @@ import java.net.URLClassLoader;
 public class StartLaunchEngine
 {
 	private static final String JAVA_ROBOT_ENGINE = "org.jeff.ptc.PerfCenterServiceEngine";
-	private static final String JAVA_ROBOT_LOADER = "SetClassLoader";
 	private static final String JAVA_ROBOT_CMD_MODE = "LaunchConsole";
 	/*private static final String JAVA_ROBOT_GUI_MODE = "LaunchGUI";
 	private static final String JAVA_ROBOT_SVR_MODE = "LaunchService";*/
@@ -26,11 +24,8 @@ public class StartLaunchEngine
 	{
 		try
 		{
-			Class<?> initClass = LauncherClassLoader.LoadClass(JAVA_ROBOT_ENGINE);
+			Class<?> initClass = Class.forName(JAVA_ROBOT_ENGINE);
 			Object instance = initClass.getDeclaredConstructor().newInstance();
-			// 设置加载器
-			Method loader_method = initClass.getMethod(JAVA_ROBOT_LOADER, URLClassLoader.class);
-			loader_method.invoke(instance, LauncherClassLoader.classLoader);
 			// 设置Runtime类
 			if(config.sceneClassName != null && !config.sceneClassName.isEmpty())
 			{

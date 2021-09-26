@@ -1,10 +1,5 @@
 package org.jeff.main;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 服务性能压测工具启动器<br>
  *  -gui 启动将显示压测工具界面工具<br>
@@ -15,17 +10,17 @@ import java.util.List;
  */
 public class MainLauncher
 {
-	private static final String JAVA_CLASS_PATH = "java.class.path";
-	private static final String JAVA_JAR_PATH = "libs";
+	//private static final String JAVA_CLASS_PATH = "java.class.path";
+	//private static final String JAVA_JAR_PATH = "libs";
 	/** 启动加载时，设置classpath，方便动态加载jars */
+	/*
 	static
 	{
 		List<URL> jars = new ArrayList<URL>();
-		String initialClasspath = System.getProperty(JAVA_CLASS_PATH);
-		File initJar = new 	File(initialClasspath);
-		String InitialJarPath = initJar.getParent();
-		System.out.printf("[DEBUG] initialClasspath:%s \n",initialClasspath);
-		System.out.printf("[DEBUG] InitialJarPath: %s, \n", InitialJarPath);
+		// 获取当前程序的工作路径的绝对路径
+		File initJar = new 	File("./");
+		String InitialJarPath = initJar.getAbsolutePath();
+		System.out.printf("[DEBUG] Startup Work Path:: %s \n", InitialJarPath);
 		// 加载lib中的全部jar包。
 		File[] jar_files = LauncherClassLoader.GetJarsFromPath(InitialJarPath + "/" + JAVA_JAR_PATH);
 		if(jar_files != null)
@@ -46,6 +41,7 @@ public class MainLauncher
 			{
 				e.printStackTrace();
 			}
+			String initialClasspath = System.getProperty(JAVA_CLASS_PATH);
 			System.setProperty(JAVA_CLASS_PATH, initialClasspath + str_path.toString());
 			// 创建加载器
 			LauncherClassLoader.classLoader = LauncherClassLoader.CreateLoader(jars.toArray(new URL[jars.size()]));
@@ -55,7 +51,7 @@ public class MainLauncher
 			LauncherClassLoader.classLoader = new LauncherClassLoader(new URL[] {}, MainLauncher.class.getClassLoader());
 		}
 		
-	}
+	}*/
 	/**
 	 * main
 	 * @param args
@@ -65,16 +61,6 @@ public class MainLauncher
 		// 读取启动配置
 		LauncherConfig config = new LauncherConfig();
 		config.parseParams(args);
-		if(config.jarsPath != null && !config.jarsPath.isEmpty())
-		{
-			LauncherClassLoader.classLoader.SetJarsPath(config.jarsPath);
-		}
-		if(config.classesPath != null && !config.classesPath.isEmpty())
-		{
-			LauncherClassLoader.classLoader.SetClassPath(config.classesPath);
-		}
-		// 设置线程加载器
-		Thread.currentThread().setContextClassLoader(LauncherClassLoader.classLoader);
 		// 启动引擎
 		StartLaunchEngine controller = new StartLaunchEngine();
 		controller.InitWithLaunch(config);

@@ -125,7 +125,7 @@ public class LauncherClassLoader extends URLClassLoader
      * @param urls
      * @return
      */
-    public static LauncherClassLoader CreateLoader(URL[] urls)
+    protected static LauncherClassLoader CreateLoader(URL[] urls)
     {
         PrivilegedAction<LauncherClassLoader> action = new PrivilegedAction<LauncherClassLoader>()
         {
@@ -142,7 +142,7 @@ public class LauncherClassLoader extends URLClassLoader
      * @param class_name
      * @return
      */
-    public static Class<?> LoadClass(String class_name) throws ClassNotFoundException
+    protected static Class<?> LoadClass(String class_name) throws ClassNotFoundException
     {
         return classLoader.loadClass(class_name);
     }
